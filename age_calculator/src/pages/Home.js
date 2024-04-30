@@ -4,27 +4,20 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
 import dayjs from "dayjs";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
-import age1 from "../images/age1.jpg";
 import baby from "../images/baby.jpeg";
 import young from "../images/young.jpeg";
 import father from "../images/father.jpeg";
 import grandfather from "../images/grandfather.jpeg";
 import schoolboy from "../images/schoolboy.jpeg";
+import error from "../images/error.jpeg";
 import work from "../images/work.jpeg";
 import { Stack } from "@mui/material";
 
@@ -71,7 +64,7 @@ function AgeCard() {
   };
 
   const renderImage = (age) => {
-    if (age < 5) {
+    if (age < 5 && age >= 0) {
       return (
         <CardMedia
           component="img"
@@ -116,6 +109,15 @@ function AgeCard() {
           alt="father"
         />
       );
+    } else if (age < 0) {
+      return (
+        <CardMedia
+          component="img"
+          sx={{ width: 200 }}
+          image={error}
+          alt="error"
+        />
+      );
     } else {
       return (
         <CardMedia
@@ -129,6 +131,231 @@ function AgeCard() {
   };
 
   const age = calculateAge(selectedDoB);
+
+  const outputTop = (age) => {
+    if (age >= 0) {
+      return (
+        <Stack
+          spacing={2}
+          direction="row"
+          sx={{ display: "flex", alignItems: "center", marginBottom: "2em" }}
+        >
+          <Typography component="div" variant="h5" sx={{ color: "#6a6a6b" }}>
+            You are
+          </Typography>
+
+          <Typography
+            component="div"
+            variant="h3"
+            sx={{ color: "#0075db", fontWeight: 600 }}
+          >
+            {age}
+          </Typography>
+
+          <Typography component="div" variant="h5" sx={{ color: "#6a6a6b" }}>
+            years old
+          </Typography>
+        </Stack>
+      );
+    } else {
+      return (
+        <Typography
+          component="div"
+          variant="h5"
+          sx={{ color: "#fc0335", marginBottom: "2em", fontWeight: 600 }}
+        >
+          Enter Valid Date of Birth
+        </Typography>
+      );
+    }
+
+  };
+
+  function outputBottom(years, months, days){
+    if (years >= 0 && months >= 0) {
+      return (
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            marginTop: "2em",
+            width: "60%",
+            justifyContent: "space-between",
+          }}
+        >
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "1em",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "20%",
+            }}
+          >
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              Years
+            </Typography>
+            <Divider />
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              {years}
+            </Typography>
+          </Paper>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "1em",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "20%",
+            }}
+          >
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              Months
+            </Typography>
+            <Divider />
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              {months}
+            </Typography>
+          </Paper>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "1em",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "20%",
+            }}
+          >
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              Days
+            </Typography>
+            <Divider />
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              {days}
+            </Typography>
+          </Paper>
+        </Box>
+      );
+    } else {
+      return (
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            marginTop: "2em",
+            width: "60%",
+            justifyContent: "space-between",
+          }}
+        >
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "1em",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "20%",
+            }}
+          >
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              Years
+            </Typography>
+            <Divider />
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              --
+            </Typography>
+          </Paper>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "1em",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "20%",
+            }}
+          >
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              Months
+            </Typography>
+            <Divider />
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              --
+            </Typography>
+          </Paper>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "1em",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "20%",
+            }}
+          >
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              Days
+            </Typography>
+            <Divider />
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{ color: "#6a6a6b" }}
+            >
+              --
+            </Typography>
+          </Paper>
+        </Box>
+      );
+    }
+  };
 
   return (
     <Card sx={{ display: "flex", width: "80%" }}>
@@ -147,7 +374,11 @@ function AgeCard() {
             alignItems: "center",
           }}
         >
-          <Typography component="div" variant="h4" sx={{ color: "#0075db", fontWeight: 600 }}>
+          <Typography
+            component="div"
+            variant="h4"
+            sx={{ color: "#0075db", fontWeight: 600 }}
+          >
             Pick your Birthday
           </Typography>
           <BirthDatePicker handleDoBChange={handleDoBChange} />
@@ -163,94 +394,11 @@ function AgeCard() {
           justifyContent: "center",
         }}
       >
-        <Stack
-          spacing={2}
-          direction="row"
-          sx={{ display: "flex", alignItems: "center", marginBottom: "2em" }}
-        >
-          <Typography component="div" variant="h5" sx={{ color: "#6a6a6b" }}>
-            You are
-          </Typography>
-
-          <Typography
-            component="div"
-            variant="h3"
-            sx={{ color: "#0075db", fontWeight: 600 }}
-          >
-            {age.years}
-          </Typography>
-
-          <Typography component="div" variant="h5" sx={{ color: "#6a6a6b" }}>
-            years old
-          </Typography>
-        </Stack>
+        {outputTop(age.years)}
 
         {renderImage(age.years)}
 
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            marginTop: "2em",
-            width: "60%",
-            justifyContent: "space-between"
-          }}
-        >
-          <Paper
-            elevation={3}
-            sx={{
-              padding: "1em",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              width: "20%"
-            }}
-          >
-            <Typography component="div" variant="h5" sx={{ color: "#6a6a6b" }}>
-              Years
-            </Typography>
-            <Divider />
-            <Typography component="div" variant="h5" sx={{ color: "#6a6a6b" }}>
-              {age.years}
-            </Typography>
-          </Paper>
-          <Paper
-            elevation={3}
-            sx={{
-              padding: "1em",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              width: "20%"
-            }}
-          >
-            <Typography component="div" variant="h5" sx={{ color: "#6a6a6b" }}>
-              Months
-            </Typography>
-            <Divider />
-            <Typography component="div" variant="h5" sx={{ color: "#6a6a6b" }}>
-              {age.months}
-            </Typography>
-          </Paper>
-          <Paper
-            elevation={3}
-            sx={{
-              padding: "1em",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              width: "20%"
-            }}
-          >
-            <Typography component="div" variant="h5" sx={{ color: "#6a6a6b" }}>
-              Days
-            </Typography>
-            <Divider />
-            <Typography component="div" variant="h5" sx={{ color: "#6a6a6b" }}>
-              {age.days}
-            </Typography>
-          </Paper>
-        </Box>
+        {outputBottom(age.years, age.months, age.days)}
       </Box>
     </Card>
   );
